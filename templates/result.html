@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis Result - Digital Bhera</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">Digital Bhera <span>by Ali Raza</span></div>
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/projects">Projects</a>
+            <a href="/about">About Us</a>
+            <a href="/contact">Contact Us</a>
+        </div>
+    </nav>
+
+    <section class="page-header">
+        <p class="tagline">DATA ANALYSIS OUTPUT</p>
+        <h1>Analysis Result</h1>
+        <p class="page-desc">AI-powered dataset breakdown with charts, insights, and summaries.</p>
+    </section>
+
+    <section class="result-wrapper">
+        <div class="result-card">
+            <h2>Uploaded File</h2>
+            <p>{{ filename }}</p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-box">
+                <h2>{{ num_rows }}</h2>
+                <p>Rows</p>
+            </div>
+            <div class="stat-box">
+                <h2>{{ num_cols }}</h2>
+                <p>Columns</p>
+            </div>
+        </div>
+
+        <div class="result-card">
+            <h2>Columns</h2>
+            <ul>
+                {% for col in columns %}
+                    <li>{{ col }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="result-card">
+            <h2>Missing Values</h2>
+            <ul>
+                {% for key, value in missing_values.items() %}
+                    <li>{{ key }}: {{ value }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="result-card">
+            <h2>Preview</h2>
+            <div class="table-wrapper">
+                {{ preview|safe }}
+            </div>
+        </div>
+
+        <div class="result-card">
+            <h2>Numeric Statistics</h2>
+            <div class="table-wrapper">
+                {{ numeric_stats|safe }}
+            </div>
+        </div>
+
+        {% if categorical_summary %}
+        <div class="result-card">
+            <h2>Categorical Summary</h2>
+            {% for col, values in categorical_summary.items() %}
+                <div class="category-box">
+                    <h3>{{ col }}</h3>
+                    <ul>
+                        {% for key, value in values.items() %}
+                            <li>{{ key }}: {{ value }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <div class="result-card">
+            <h2>AI Insights</h2>
+            <ul>
+                {% for insight in insights %}
+                    <li>{{ insight }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        {% if chart_file %}
+        <div class="result-card">
+            <h2>Generated Histogram</h2>
+            <img src="/charts/{{ chart_file }}" alt="Histogram Chart" class="chart-img">
+        </div>
+        {% endif %}
+
+        {% if heatmap_file %}
+        <div class="result-card">
+            <h2>Correlation Heatmap</h2>
+            <img src="/charts/{{ heatmap_file }}" alt="Correlation Heatmap" class="chart-img">
+        </div>
+        {% endif %}
+
+        <div class="center-btn">
+            <a href="/" class="btn btn-primary">Upload Another File</a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>Digital Bhera by Ali Raza — Futuristic AI Websites & Intelligent Products</p>
+    </footer>
+</body>
+</html>
